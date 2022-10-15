@@ -1,0 +1,29 @@
+body{
+    background-image: url("https://www.hdwallpapers.in/download/road_and_trees_covered_with_fog_during_fall_4k_hd_nature-1920x1080.jpg");
+    background-repeat: no-repeat;
+    background-size: 100%;
+}
+
+.figure{
+    display: flex;
+    justify-content: space-evenly;
+    margin-top: 10%;
+}
+
+.figureBtn{
+    padding: 20px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 25px;
+    border-color:slateblue;
+    background-color: darksalmon;
+    cursor: pointer;
+}
+
+.figureBtn:hover{
+    background-color: yellow;
+}
+
+.figureBtn:active{
+    background-color: darkgrey;
+}

@@ -114,3 +114,26 @@ btn4.addEventListener('click', ()=> {
     }
 
 });
+
+btn4.addEventListener('click', ()=> {
+
+    let Sosn = Number(prompt("Введите площадь основания пирамиды: "));
+    let Sbok = Number(prompt("Введите площадь боковых сторон пирамиды: "));
+    let h = Number(prompt("Введите размер высоты пирамиды: "));
+    
+    if(Sosn == 0 || Sbok == 0 || h == 0){
+        alert("Быть этого не может! Повторите попытку!");
+    }
+    else{
+        function V(){
+            return Sosn / 3 * h;
+        }
+
+        function S(){
+            return Sosn + Sbok;
+        }
+
+        alert("Объём пирамиды V = " + V() + " \nПлощадь пирамиды S = " + S());
+    }
+
+});
