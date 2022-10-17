@@ -1,7 +1,8 @@
-let bankBalance = 1978; //баланс банковского счёта
-const phonePrice = 120; //стоимость телефона
-const phoneAccessories = 14; //стоимость аксессуаров
-const tax = 0.05; //налог в %
+let bankBalance = prompt("Введите количество денежных средств на Банковском Счету : "); //баланс банковского счёта
+const phonePrice = prompt("Введите цену телефонов : "); //стоимость телефона
+const phoneAccessories = prompt("Введите цену аксессуаров : "); //стоимость аксессуаров
+const tax = prompt("Введите процентный размер налога : "); //налог в %
+
 
 function taxPrice(){ 
     return (phoneAccessories + phonePrice) * tax; //величина налога на телефон с аксессуаром
@@ -43,9 +44,9 @@ while(bankBalance > 0){
 
 function displayResult(){
 
-    let accesoriesTotalPrice = accesoriesResult.toFixed(2);
-    let phoneTotalPrice = phoneResult.toFixed(2);
-    let residualBankBalance = bankBalance.toFixed(2); ;
+    const accesoriesTotalPrice = accesoriesResult.toFixed(2);
+    const phoneTotalPrice = phoneResult.toFixed(2);
+    const residualBankBalance = bankBalance.toFixed(2); ;
     
     alert("\nКол-во телефонов : " + phoneCount +
     "\nКол-во аксессуаров : " + accesoriesCount +
