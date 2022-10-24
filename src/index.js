@@ -1,13 +1,20 @@
 /**
- * Метод принимает на вход строку ивозвращает число
- * value - передоваемаяя в метод строка
+ * Метод принимает на вход строку и возвращает число
+ * value - передаваемаяя в метод строка
  *
  * менять имя функции нельзя,
- * создовать дополнитеьные функции можно
+ * создавать дополнительные функции можно
  */
  const stringToNumber = function (value) {
-    // ваш код
+
+    let result;
+
+    value === "" ? result = 0 : result = parseInt(value,10);
+
+    return result;
   };
   
-  export default stringToNumber;
+console.log(stringToNumber("42px"));
+
+ export default stringToNumber;
   
