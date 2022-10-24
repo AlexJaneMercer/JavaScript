@@ -14,3 +14,4 @@ describe("Приводим строку к числу", () => {
     expect(stringToNumber("42px")).toBe(42);
   });
 });
+
