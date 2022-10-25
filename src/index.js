@@ -7,11 +7,9 @@
  */
  const stringToNumber = function (value) {
 
-    let result;
+    let result = Number(value);
 
-    value === "" ? result = 0 : result = parseInt(value,10);
-
-    return result;
+    Object.is(result, NaN) ? result = parseInt(value,10) : return result;
   };
   
 console.log(stringToNumber("42px"));
