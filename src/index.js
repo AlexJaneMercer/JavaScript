@@ -9,7 +9,7 @@
 
     let result = Number(value);
 
-    Object.is(result, NaN) ? return result = parseInt(value,10) : return result;
+    return Object.is(result, NaN) ?  parseInt(value,10) : result;
   };
   
 console.log(stringToNumber("42px"));
