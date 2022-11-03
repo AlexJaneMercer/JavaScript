@@ -1,79 +1,81 @@
-function discount(a) {
-    let Amount;
-    a === undefined ? Amount = this.amount : Amount = a; 
-    return (b) => {
-        let Personal;
-        b === undefined ? Personal = this.personal : Personal = b;
-        return (c) => {
-            let Regional;
-            c === undefined ? Regional = this.regional : Regional = c;
-            return (d) => {
-                let Quantitative;
-                d === undefined ? Quantitative = this.quantitative : Quantitative = d;
-                let result = ((Amount * (1 - Personal/100)) * (1 - Regional/100)) * (1 - Quantitative/100);
-                return result.toFixed(0);
+const Person = {
+    personConstructor: function (name, amount, quantitative) {
+        this.name = name;
+        this.amount = amount;
+        this.quantitative = quantitative;
+        this.discountPersonal = discountPersonal;
+        return this;
+    }
+}
+
+const person1 = new Person.personConstructor("Vasya", "24500", "5");
+const person2 = new Person.personConstructor("Alex", "35500", "8");
+const person3 = new Person.personConstructor("Masha", "55000", "20");
+const person4 = new Person.personConstructor("Sveta", "11000", "12");
+
+function calcDiscountValue (value) {
+    let personalDiscont = 1 - (value / 100);
+        return personalDiscont.toFixed(2);
+}
+
+// calc Personal Disount by Sum of money 
+function discountPersonal() {
+    if ( this.amount < 15000) {
+        return calcDiscountValue(10);
+    } else if (this.amount >= 15000 && this.amount < 50000) {
+        return calcDiscountValue(15);
+    } else if (this.amount >= 50000) {
+        return calcDiscountValue(19);
+    } 
+}
+
+// calc Quantative discount by items buy
+function quantitativeDiscount() {
+    if (this.quantitative < 3) {
+        return calcDiscountValue(3);
+    } else if (this.quantitative >= 3 && this.quantitative < 10) {
+        return calcDiscountValue(5);
+    } else if (this.quantitative >= 10) {
+        return calcDiscountValue(10)
+    } 
+}
+
+// Personal Discount
+const getVasyaPersonal = discountPersonal.bind(person1);
+const getAlexPersonal = discountPersonal.bind(person2);
+const getMashaPersonal = discountPersonal.bind(person3);
+const getSvetaPersonal = discountPersonal.bind(person4);
+
+// Discounts in Regions
+const discountInPoland = calcDiscountValue(3);
+const discountInGrece = calcDiscountValue(6);
+const discountInHungary = calcDiscountValue(4.3)
+const discountInUSA = calcDiscountValue(9.2);
+
+// Person quantitative
+const getVasyaQuantative = quantitativeDiscount.bind(person1);
+const getAlexQuantative = quantitativeDiscount.bind(person2);
+const getMashaQuantative = quantitativeDiscount.bind(person3);
+const getSvetaQuantative = quantitativeDiscount.bind(person4);
+
+function calcAllDiscount(regional) {
+    return function(amount) {
+        return function(personal) {
+            return function(quantitative) {
+                let result = regional * amount * personal * quantitative;
+                return result.toFixed(0)
             }
         }
     }
 }
 
-/*
-function discount(){
+// Common discount in Countries
+const commonDiscountinPoland = calcAllDiscount(discountInPoland);
+const commonDiscountinGreece = calcAllDiscount(discountInGrece);
+const commonDiscountinHugrary = calcAllDiscount(discountInHungary);
+const commonDiscountinUSA = calcAllDiscount(discountInUSA);
 
-    let result = ((this.amount * (1 - this.personal/100)) * (1 - this.regional/100)) * (1 - this.quantitative/100);
-    result = result.toFixed(0);
-    return result;
-}
-*/
-
-let mass = [];
-
-mass.push(person1 = {
-	amount: '24500',
-	personal: '5',
-	regional: '2',
-	quantitative: '15',
-
-    counting: discount,
-}
-);
-
-mass.push(person2 = {
-	amount: '66501',
-	personal: '3',
-	regional: '5',
-	quantitative: '10',
-}
-);
-
-mass.push(person3 = {
-	amount: '35303',
-	personal: '7',
-	regional: '11',
-	quantitative: '12',
-}
-);
-
-mass.push(person4 = {
-	amount: '15389',
-	personal: '10',
-	regional: '3',
-	quantitative: '22',
-}
-);
-
-mass.push(person5 = {
-	amount: '23350',
-	personal: '2',
-	regional: '1',
-	quantitative: '13',
-}
-);
-
-console.log("Первая персона = " + person1.counting(25000)()()());                ////
-console.log("Вторая персона = " + person1.counting.call(person2)()()(20));      //  вывод выбранной персоны с возможностью замены данных 
-console.log("Четвёртая персона = " + person1.counting.call(person4)(5)()(11)); ////
-
-for (let i = 0; i < mass.length; i++) { //Вывод массива с персонами и их суммами по умолчанию
-    console.log(`Сумма Персоны №${i+1} = ${person1.counting.call(mass[i])()()()} руб.`);
-}
+console.log("Сумма Васи со скидкой в Польше = " + commonDiscountinPoland(person1.amount)(getVasyaPersonal())(getVasyaQuantative()) + " руб."); 
+console.log("Сумма Алекса со скидкой в Греции = " + commonDiscountinGreece(person2.amount)(getAlexPersonal())(getAlexQuantative()) + " руб.");
+console.log("Сумма Маши со скидкой в Венгрии = " + commonDiscountinHugrary(person3.amount)(getMashaPersonal())(getMashaQuantative()) + " руб.");
+console.log("Сумма Светы со скидкой в США = " + commonDiscountinUSA(person4.amount)(getSvetaPersonal())(getSvetaQuantative()) + " руб.");
